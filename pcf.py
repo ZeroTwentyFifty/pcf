@@ -1,69 +1,62 @@
-class EnvironmentalImpactCategory:
-    """
-    Represents an environmental impact category.
+from typing import Final
 
+
+class EnvironmentalImpact:
+    """
+    Represents a generic environmental impact with common attributes.
 
     Attributes:
-        category: str
+        name: str
             The name of the environmental impact category.
         unit: str
-            The unit of measurement for the environmental impact category.
+            The unit of measurement for the environmental impact.
         description: str
-            A brief description of the environmental impact category.
+            A brief description of the environmental impact.
     """
 
-    def __init__(self, *, category: str, unit: str, description: str):
-        """
-        Initializes an EnvironmentalImpactCategory instance.
-
-        Args:
-            category: str
-                The name of the environmental impact category.
-            unit: str
-                The unit of measurement for the environmental impact category.
-            description: str
-                A brief description of the environmental impact category.
-        """
-        self.category: str = category
-        self.unit: str = unit
-        self.description: str = description
+    def __init__(self, name: str, unit: str, description: str) -> None:
+        self.name: Final = name
+        self.unit: Final = unit
+        self.description: Final = description
 
     def __str__(self) -> str:
-        """
-        Returns a string representation of the environmental impact category.
+        """Returns a string representation of the environmental impact."""
+        return f"{self.name} ({self.unit}): {self.description}"
 
-        Returns:
-            str
-                A string representation of the environmental impact category.
-        """
-        return f"{self.category} ({self.unit})"
 
-    def get_category(self) -> str:
-        """
-        Returns the name of the environmental impact category.
+class ClimateChange(EnvironmentalImpact):
+    """
+    Represents the Climate Change impact category.
+    """
 
-        Returns:
-            str
-                The name of the environmental impact category.
-        """
-        return self.category
+    def __init__(self) -> None:
+        super().__init__(
+            name="Climate Change",
+            unit="kg CO2-eq",
+            description="Impact on global warming and climate change",
+        )
 
-    def get_unit(self) -> str:
-        """
-        Returns the unit of measurement for the environmental impact category.
 
-        Returns:
-            str
-                The unit of measurement for the environmental impact category.
-        """
-        return self.unit
+class Acidification(EnvironmentalImpact):
+    """
+    Represents the Acidification impact category.
+    """
 
-    def get_description(self) -> str:
-        """
-        Returns a brief description of the environmental impact category.
+    def __init__(self) -> None:
+        super().__init__(
+            name="Acidification",
+            unit="kg SO2-eq",
+            description="Impact on acidification of soil and water",
+        )
 
-        Returns:
-            str
-                A brief description of the environmental impact category.
-        """
-        return self.description
+
+# Define further subclasses for all 15 EN15804 Environmental Impact Categories
+
+# Example usage
+climate_change = ClimateChange()
+print(climate_change)
+# Output: Climate Change (kg CO2-eq): Impact on global warming and climate change
+
+acidification = Acidification()
+print(acidification.unit)
+# Output: kg SO2-eq
